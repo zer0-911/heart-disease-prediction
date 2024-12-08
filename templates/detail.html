@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white font-sans min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="text-center py-8">
+        <h1 class="text-4xl font-bold text-cyan-400">Heart Disease Prediction System</h1>
+        <p class="mt-4 text-lg">Hey, {{ n }}! Fill in all the correct details to check for heart disease.</p>
+    </header>
+
+    <!-- Form Section -->
+    <main class="flex-grow flex justify-center items-center">
+        <form action="{{ url_for('predict') }}" method="POST"
+            class="bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
+            <div class="space-y-4">
+
+                <!-- Age -->
+                <div>
+                    <label for="age" class="block text-sm font-medium">Age</label>
+                    <input type="number" name="age" id="age" placeholder="Enter Your Age" required
+                        class="w-full mt-1 px-4 py-2 bg-gray-900 text-gray-300 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                </div>
+
+                <!-- Sex -->
+                <div>
+                    <label class="block text-sm font-medium">Sex</label>
+                    <div class="flex items-center mt-2 space-x-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="sex" value="1" required class="text-cyan-400 focus:ring-cyan-400">
+                            <span class="ml-2">Male</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="sex" value="0" required class="text-cyan-400 focus:ring-cyan-400">
+                            <span class="ml-2">Female</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Chest Pain Type -->
+                <div>
+                    <label for="cp" class="block text-sm font-medium">Chest Pain Type</label>
+                    <select name="cp" id="cp"
+                        class="w-full mt-1 px-4 py-2 bg-gray-900 text-gray-300 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                        <option value="0">Type-1</option>
+                        <option value="1">Type-2</option>
+                        <option value="2">Type-3</option>
+                        <option value="3">Type-4</option>
+                    </select>
+                </div>
+
+                <!-- Blood Pressure -->
+                <div>
+                    <label for="trestbps" class="block text-sm font-medium">Blood Pressure</label>
+                    <input type="number" name="trestbps" id="trestbps" placeholder="Blood Pressure (90-200)" required
+                        class="w-full mt-1 px-4 py-2 bg-gray-900 text-gray-300 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                </div>
+
+                <!-- Cholesterol -->
+                <div>
+                    <label for="chol" class="block text-sm font-medium">Cholesterol</label>
+                    <input type="number" name="chol" id="chol" placeholder="Cholesterol (120-570)" required
+                        class="w-full mt-1 px-4 py-2 bg-gray-900 text-gray-300 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                </div>
+
+                <!-- Fasting Blood Sugar -->
+                <div>
+                    <label class="block text-sm font-medium">Fasting Blood Sugar</label>
+                    <div class="flex items-center mt-2 space-x-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="fbs" value="1" required class="text-cyan-400 focus:ring-cyan-400">
+                            <span class="ml-2">Yes</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="fbs" value="0" required class="text-cyan-400 focus:ring-cyan-400">
+                            <span class="ml-2">No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Electrocardiographic -->
+                <div>
+                    <label for="restecg" class="block text-sm font-medium">Electrocardiographic</label>
+                    <select name="restecg" id="restecg"
+                        class="w-full mt-1 px-4 py-2 bg-gray-900 text-gray-300 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                        <option value="0">Type-1</option>
+                        <option value="1">Type-2</option>
+                        <option value="2">Type-3</option>
+                    </select>
+                </div>
+
+                <!-- Heart Rate -->
+                <div>
+                    <label for="thalach" class="block text-sm font-medium">Heart Rate</label>
+                    <input type="number" name="thalach" id="thalach" placeholder="Heart Rate (60-220)" required
+                        class="w-full mt-1 px-4 py-2 bg-gray-900 text-gray-300 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                </div>
+
+                <!-- Angina -->
+                <div>
+                    <label class="block text-sm font-medium">Angina</label>
+                    <div class="flex items-center mt-2 space-x-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="exang" value="1" required
+                                class="text-cyan-400 focus:ring-cyan-400">
+                            <span class="ml-2">Yes</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="exang" value="0" required
+                                class="text-cyan-400 focus:ring-cyan-400">
+                            <span class="ml-2">No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Oldpeak -->
+                <div>
+                    <label for="oldpeak" class="block text-sm font-medium">Oldpeak</label>
+                    <select name="oldpeak" id="oldpeak"
+                        class="w-full mt-1 px-4 py-2 bg-gray-900 text-gray-300 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+
+                <!-- Slope -->
+                <div>
+                    <label for="slope" class="block text-sm font-medium">Slope</label>
+                    <select name="slope" id="slope"
+                        class="w-full mt-1 px-4 py-2 bg-gray-900 text-gray-300 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                    </select>
+                </div>
+
+                <!-- CA -->
+                <div>
+                    <label for="ca" class="block text-sm font-medium">CA</label>
+                    <select name="ca" id="ca"
+                        class="w-full mt-1 px-4 py-2 bg-gray-900 text-gray-300 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+
+                <!-- Thalassemia -->
+                <div>
+                    <label for="thal" class="block text-sm font-medium">Thalassemia</label>
+                    <select name="thal" id="thal"
+                        class="w-full mt-1 px-4 py-2 bg-gray-900 text-gray-300 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-cyan-400">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="mt-6 text-center">
+                    <button type="submit"
+                        class="bg-cyan-400 hover:bg-cyan-500 text-gray-900 font-bold py-2 px-6 rounded-lg shadow-lg transition">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6 text-center bg-gray-900">
+        <p class="text-sm text-gray-500">© 2024 MedX. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>
